@@ -52,7 +52,7 @@ function App() {
           </div>
         ))}
         <p>Result: {result}</p>
-        <p>Result: {donationLimit - result}</p>
+        <p>可能金額: {donationLimit - result}</p>
         <button onClick={handleAddInput}>Add Input</button>
         <button onClick={handleCalculate}>Calculate</button>
       </div>
