@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [inputs, setInputs] = useState(["", ""]); // 入力欄の値を保持する配列
+  const [result, setResult] = useState(0); // 合計値を保持する状態変数
+
+  const handleInputChange = (index, value) => {
+    // 入力欄の値が変更されたときに呼び出される関数
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
+  };
+
+  const handleAddInput = () => {
+    // 入力欄を追加するボタンがクリックされたときに呼び出される関数
+    setInputs([...inputs, ""]);
+  };
+
+  const handleCalculate = () => {
+    // 入力欄の値の合計を計算する関数
+    const sum = inputs.reduce((acc, val) => acc + Number(val), 0);
+    setResult(sum);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {inputs.map((input, index) => (
+          <div key={index}>
+            <label htmlFor={`input${index}`}>Input {index + 1}:</label>
+            <input
+              type="number"
+              id={`input${index}`}
+              value={input}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+            />
+          </div>
+        ))}
+        <p>Result: {result}</p>
+        <button onClick={handleAddInput}>Add Input</button>
+        <button onClick={handleCalculate}>Calculate</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
