@@ -31,7 +31,8 @@ function App() {
 
   return (
     <>
-      <h1>寄付上限額: {donationLimit}円</h1>
+      <h1>ふるさと納税いくらできるのかな--</h1>
+      <h2>寄付上限額: {donationLimit}円</h2>
 
       <input
         type="number"
