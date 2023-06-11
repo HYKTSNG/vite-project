@@ -51,7 +51,7 @@ function App() {
             />
           </div>
         ))}
-        <p>Result: {result}</p>
+        <p>購入金額: {result}</p>
         <p>残り可能金額: {Math.max(donationLimit - result, 0)}</p>
         <button onClick={handleAddInput}>Add Input</button>
       </div>
