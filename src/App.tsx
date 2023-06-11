@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -23,16 +23,15 @@ function App() {
     setDonationLimit(Number(event.target.value));
   };
 
-  const handleCalculate = () => {
-    // 入力欄の値の合計を計算する関数
+  useEffect(() => {
+    // 入力欄の値や寄付上限額が変更されたときに合計値を計算する
     const sum = inputs.reduce((acc, val) => acc + Number(val), 0);
-    const donationAmount = Math.min(sum, donationLimit); // 寄付上限額と合計値のうち小さい方を寄付額とする
-    setResult(donationAmount);
-  };
+    setResult(Math.min(sum, donationLimit));
+  }, [inputs, donationLimit]);
 
   return (
     <>
-      <h1>寄付上限額:{donationLimit}円</h1>
+      <h1>寄付上限額: {donationLimit}円</h1>
 
       <input
         type="number"
@@ -42,7 +41,7 @@ function App() {
       <div className="card">
         {inputs.map((input, index) => (
           <div key={index}>
-            <label htmlFor={`input${index}`}>Input {index + 1}:</label>
+            <label htmlFor={`input${index}`}>購入物 {index + 1}:</label>
             <input
               type="number"
               id={`input${index}`}
@@ -52,9 +51,8 @@ function App() {
           </div>
         ))}
         <p>Result: {result}</p>
-        <p>可能金額: {donationLimit - result}</p>
+        <p>可能金額: {Math.max(donationLimit - result, 0)}</p>
         <button onClick={handleAddInput}>Add Input</button>
-        <button onClick={handleCalculate}>Calculate</button>
       </div>
     </>
   );
