@@ -42,7 +42,9 @@ function App() {
       <div className="card">
         {inputs.map((input, index) => (
           <div key={index}>
-            <label htmlFor={`input${index}`}>購入物 {index + 1}:</label>
+            <label htmlFor={`input${index}`}>
+              購入物を入れてね {index + 1}:
+            </label>
             <input type="text" id={`input${index}`} defaultValue="購入物" />
             <input
               type="number"
